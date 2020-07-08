@@ -1,0 +1,13 @@
+{
+    "editor.formatOnSave": true,
+    "arduino.path": "/home/prokop/bin/arduino-1.8.12/",
+    "arduino.commandPath": "./arduino",
+    "arduino.logLevel": "info",
+    "arduino.allowPDEFiletype": false, 
+    "arduino.enableUSBDetection": true,
+    "arduino.disableTestingOpen": false,
+    "arduino.skipHeaderProvider": false,
+    "arduino.additionalUrls": [
+    ],
+    "arduino.defaultBaudRate": 9600
+}

@@ -1,0 +1,39 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "~/bin/arduino-1.8.12/hardware/arduino/avr/cores/arduino/",
+                "~/bin/arduino-1.8.12/hardware/tools/avr/lib/gcc/avr/4.9.2/include/",
+                "~/bin/arduino-1.8.12/hardware/tools/avr/avr/include/",
+                "~/bin/arduino-1.8.12/hardware/arduino/avr/variants/mega",
+                "~/bin/arduino-1.8.12/hardware/arduino/avr/libraries/Wire/src",
+                "~/bin/arduino-1.8.12/hardware/arduino/avr/libraries/EEPROM/src",
+                "~/Arduino/libraries/LiquidCrystal_I2C/",
+                "/home/prokop/bin/arduino-1.8.12/hardware/arduino/avr/**",
+                "/home/prokop/bin/arduino-1.8.12/tools/**"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "~/bin/arduino-1.8.12/hardware/arduino/avr/cores/arduino/",
+                    "~/bin/arduino-1.8.12/hardware/tools/avr/lib/gcc/avr/4.9.2/include/",
+                    "~/bin/arduino-1.8.12/hardware/tools/avr/avr/include/",
+                    "~/bin/arduino-1.8.12/hardware/arduino/avr/variants/standard",
+                    "~/bin/arduino-1.8.12/hardware/arduino/avr/variants/mega",
+                    "~/bin/arduino-1.8.12/hardware/arduino/avr/libraries/Wire/",
+                    "~/Arduino/libraries/LiquidCrystal_I2C/",
+                    "${workspaceFolder}"
+                ]
+            },
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "forcedInclude": [
+                "/home/prokop/bin/arduino-1.8.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ]
+        }
+    ],
+    "version": 4
+}
