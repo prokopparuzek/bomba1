@@ -26,6 +26,8 @@
 #define DINO 2
 #define HEAD 3
 
+#define TIMER 120 * 1000L
+
 // reset
 void (*resetFunc)(void) = 0;
 
@@ -54,6 +56,8 @@ uint16_t maxScore;
 byte simon[10] = {RED,   RED,   GREEN, YELLOW, YELLOW,
                   GREEN, GREEN, RED,   GREEN,  RED};
 byte index = 0;
+unsigned long int timerBomb = 0;
+unsigned long int BUM;
 
 void setup() {
   // LED setup
@@ -90,14 +94,23 @@ void setup() {
   if (digitalRead(GAME_PIN) == LOW) {
     play();
   }
+  timerBomb = millis();
+  BUM = millis() + TIMER;
 }
 
 void loop() {
+  // remain time
+  printTime();
+  // defuse
+  if (index == 10) {
+    lcd.setCursor(4, 0);
+    lcd.print("DEFUSE!");
+    while (1)
+      ;
+  }
+  // change color
   int color = analogRead(POT);
-  // Serial.print(color);
-  // Serial.print(":");
   color = map(color, 0, 1023, 9, 11);
-  // Serial.println(color);
   switch (color) {
     case GREEN:
       green();
@@ -108,6 +121,38 @@ void loop() {
     case RED:
       red();
       break;
+  }
+  // add color
+  if (digitalRead(LEFT) == LOW) {
+    if (color == simon[index]) {
+      index++;
+      for (int i = 0; i < index; i++) {
+        tone(BEEP, a2);
+        switch (simon[i]) {
+          case GREEN:
+            green();
+            break;
+          case YELLOW:
+            yellow();
+            break;
+          case RED:
+            red();
+            break;
+        }
+        delay(1000);
+        printTime();
+        off();
+        noTone(BEEP);
+        delay(250);
+        printTime();
+      }
+      noTone(BEEP);
+    } else {
+      index = 0;
+      tone(BEEP, a4);
+      delay(1000);
+      noTone(BEEP);
+    }
   }
 }
 
@@ -127,6 +172,41 @@ void green() {
   digitalWrite(GREEN, HIGH);
   digitalWrite(YELLOW, LOW);
   digitalWrite(RED, LOW);
+}
+
+void off() {
+  digitalWrite(GREEN, LOW);
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(RED, LOW);
+}
+
+void printTime() {
+  unsigned long remain = BUM - millis();
+  int min, sec;
+  remain /= 1000;
+  min = remain / 60;
+  sec = remain % 60;
+  lcd.setCursor(6, 0);
+  if (min < 10) {
+    lcd.print(0);
+  }
+  lcd.print(min);
+  lcd.print(":");
+  if (sec < 10) {
+    lcd.print(0);
+  }
+  lcd.print(sec);
+  if (remain == 0) {
+    for (int i = 0; i < 16; i++) {
+      for (int j = 0; j < 2; j++) {
+        lcd.setCursor(i, j);
+        lcd.write(HEAD);
+      }
+    }
+    tone(BEEP, a4);
+    while (true)
+      ;
+  }
 }
 
 void play() {
