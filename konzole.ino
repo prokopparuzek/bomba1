@@ -50,6 +50,11 @@ uint16_t refresh = 600;
 uint16_t score = 0;
 uint16_t maxScore;
 
+// bomba
+byte simon[10] = {RED,   RED,   GREEN, YELLOW, YELLOW,
+                  GREEN, GREEN, RED,   GREEN,  RED};
+byte index = 0;
+
 void setup() {
   // LED setup
   pinMode(RED, OUTPUT);
@@ -87,7 +92,42 @@ void setup() {
   }
 }
 
-void loop() {}
+void loop() {
+  int color = analogRead(POT);
+  // Serial.print(color);
+  // Serial.print(":");
+  color = map(color, 0, 1023, 9, 11);
+  // Serial.println(color);
+  switch (color) {
+    case GREEN:
+      green();
+      break;
+    case YELLOW:
+      yellow();
+      break;
+    case RED:
+      red();
+      break;
+  }
+}
+
+void red() {
+  digitalWrite(GREEN, LOW);
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(RED, HIGH);
+}
+
+void yellow() {
+  digitalWrite(GREEN, LOW);
+  digitalWrite(YELLOW, HIGH);
+  digitalWrite(RED, LOW);
+}
+
+void green() {
+  digitalWrite(GREEN, HIGH);
+  digitalWrite(YELLOW, LOW);
+  digitalWrite(RED, LOW);
+}
 
 void play() {
   // start play music
