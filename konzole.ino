@@ -101,13 +101,6 @@ void setup() {
 void loop() {
   // remain time
   printTime();
-  // defuse
-  if (index == 10) {
-    lcd.setCursor(4, 0);
-    lcd.print("DEFUSE!");
-    while (1)
-      ;
-  }
   // change color
   int color = analogRead(POT);
   color = map(color, 0, 1023, 9, 11);
@@ -126,6 +119,13 @@ void loop() {
   if (digitalRead(LEFT) == LOW) {
     if (color == simon[index]) {
       index++;
+      // defuse
+      if (index == 10) {
+        lcd.setCursor(4, 0);
+        lcd.print("DEFUSE!");
+        while (1)
+          ;
+      }
       for (int i = 0; i < index; i++) {
         tone(BEEP, a2);
         switch (simon[i]) {
