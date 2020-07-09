@@ -82,6 +82,8 @@ void setup() {
   maxScore = EEPROM.read(1);
   maxScore <<= 8;
   maxScore |= EEPROM.read(0);
+  // tades
+  if (EEPROM.read(42)) bum;
   // lcd setup
   lcd.init();
   lcd.createChar(DINO, dino);
@@ -96,6 +98,7 @@ void setup() {
   }
   timerBomb = millis();
   BUM = millis() + TIMER;
+  EEPROM.write(42, 1);
 }
 
 void loop() {
@@ -123,6 +126,7 @@ void loop() {
       if (index == 10) {
         lcd.setCursor(4, 0);
         lcd.print("DEFUSE!");
+        EEPROM.write(42, 0);
         while (1)
           ;
       }
@@ -197,16 +201,21 @@ void printTime() {
   }
   lcd.print(sec);
   if (remain == 0) {
-    for (int i = 0; i < 16; i++) {
-      for (int j = 0; j < 2; j++) {
-        lcd.setCursor(i, j);
-        lcd.write(HEAD);
-      }
-    }
-    tone(BEEP, a4);
-    while (true)
-      ;
+    bum();
   }
+}
+
+void bum() {
+  for (int i = 0; i < 16; i++) {
+    for (int j = 0; j < 2; j++) {
+      lcd.setCursor(i, j);
+      lcd.write(HEAD);
+    }
+  }
+  EEPROM.write(42, 0);
+  tone(BEEP, a4);
+  while (true)
+    ;
 }
 
 void play() {
