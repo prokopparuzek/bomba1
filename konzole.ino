@@ -56,7 +56,6 @@ uint16_t maxScore;
 byte simon[10] = {RED,   RED,   GREEN, YELLOW, YELLOW,
                   GREEN, GREEN, RED,   GREEN,  RED};
 byte index = 0;
-unsigned long int timerBomb = 0;
 unsigned long int BUM;
 
 void setup() {
@@ -96,7 +95,6 @@ void setup() {
   if (digitalRead(GAME_PIN) == LOW) {
     play();
   }
-  timerBomb = millis();
   BUM = millis() + TIMER;
   EEPROM.write(42, 1);
 }
@@ -153,6 +151,7 @@ void loop() {
       noTone(BEEP);
     } else {
       index = 0;
+      BUM -= 90000L;
       tone(BEEP, a4);
       delay(1000);
       noTone(BEEP);
