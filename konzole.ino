@@ -26,7 +26,7 @@
 #define DINO 2
 #define HEAD 3
 
-#define TIMER 120 * 1000L
+#define TIMER 30 * 60 * 1000L
 
 // reset
 void (*resetFunc)(void) = 0;
