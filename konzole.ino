@@ -82,8 +82,6 @@ void setup() {
   maxScore = EEPROM.read(1);
   maxScore <<= 8;
   maxScore |= EEPROM.read(0);
-  // tades
-  if (EEPROM.read(42)) bum;
   // lcd setup
   lcd.init();
   lcd.createChar(DINO, dino);
@@ -91,6 +89,8 @@ void setup() {
   lcd.createChar(CLEAR, clear);
   lcd.createChar(HEAD, head);
   lcd.backlight();
+  // tades
+  if (EEPROM.read(42)) bum();
   // Serial setup
   // Serial.begin(9600);
   if (digitalRead(GAME_PIN) == LOW) {
