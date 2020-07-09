@@ -199,7 +199,7 @@ void printTime() {
     lcd.print(0);
   }
   lcd.print(sec);
-  if (remain == 0) {
+  if (remain == 0 || remain > TIMER) {
     bum();
   }
 }
