@@ -139,11 +139,11 @@ void loop() {
             red();
             break;
         }
-        delay(1000);
+        delay(800);
         printTime();
         off();
         noTone(BEEP);
-        delay(250);
+        delay(200);
         printTime();
       }
       noTone(BEEP);
